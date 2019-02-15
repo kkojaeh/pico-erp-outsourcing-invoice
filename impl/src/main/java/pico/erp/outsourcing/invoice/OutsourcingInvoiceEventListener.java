@@ -104,7 +104,7 @@ public class OutsourcingInvoiceEventListener {
   @JmsListener(destination = LISTENER_NAME + "."
     + InvoiceEvents.ReceivedEvent.CHANNEL)
   public void onInvoiceReceived(InvoiceEvents.ReceivedEvent event) {
-    val invoiceId = event.getInvoiceId();
+    val invoiceId = event.getId();
     val exists = outsourcingInvoiceService.exists(invoiceId);
     if (exists) {
       val outsourcingInvoice = outsourcingInvoiceService.get(invoiceId);

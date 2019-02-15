@@ -1,6 +1,5 @@
 package pico.erp.outsourcing.invoice.item;
 
-import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +10,6 @@ import org.springframework.stereotype.Component;
 import pico.erp.invoice.item.InvoiceItemId;
 import pico.erp.invoice.item.InvoiceItemRequests;
 import pico.erp.invoice.item.InvoiceItemService;
-import pico.erp.item.lot.ItemLotCode;
-import pico.erp.item.lot.ItemLotId;
-import pico.erp.item.lot.ItemLotKey;
-import pico.erp.item.lot.ItemLotRequests;
 import pico.erp.item.lot.ItemLotService;
 import pico.erp.item.spec.ItemSpecService;
 import pico.erp.outsourcing.invoice.OutsourcingInvoiceEvents;
@@ -73,31 +68,14 @@ public class OutsourcingInvoiceItemEventListener {
       .forEach(item -> {
         val orderItem = outsourcingOrderItemService.get(item.getOrderItemId());
         val itemId = orderItem.getItemId();
-        ItemLotId lotId = null;
         val itemSpecCode = orderItem.getItemSpecCode();
-        val itemLotCode = ItemLotCode.from(dateFormatter.format(OffsetDateTime.now()));
-        val lotKey = ItemLotKey.from(itemId, itemSpecCode, itemLotCode);
-        val exists = itemLotService.exists(lotKey);
-        if (exists) {
-          lotId = itemLotService.get(lotKey).getId();
-        } else {
-          lotId = ItemLotId.generate();
-          itemLotService.create(
-            ItemLotRequests.CreateRequest.builder()
-              .id(lotId)
-              .itemId(itemId)
-              .specCode(itemSpecCode)
-              .lotCode(itemLotCode)
-              .build()
-          );
-        }
         val invoiceItemId = InvoiceItemId.generate();
         invoiceItemService.create(
           InvoiceItemRequests.CreateRequest.builder()
             .id(invoiceItemId)
             .invoiceId(outsourcingInvoice.getInvoiceId())
-            .itemId(orderItem.getItemId())
-            .itemLotId(lotId)
+            .itemId(itemId)
+            .itemSpecCode(itemSpecCode)
             .quantity(item.getQuantity())
             .unit(orderItem.getUnit())
             .remark(item.getRemark())
