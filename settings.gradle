@@ -1,0 +1,4 @@
+rootProject.name = 'pico-erp-outsourcing-invoice'
+include 'api'
+include 'impl'
+include 'test'
