@@ -1,9 +1,9 @@
 package pico.erp.outsourcing.invoice.item;
 
 import java.time.format.DateTimeFormatter;
+import kkojaeh.spring.boot.component.Take;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.event.EventListener;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
@@ -26,24 +26,19 @@ public class OutsourcingInvoiceItemEventListener {
   @Autowired
   private OutsourcingInvoiceItemService outsourcingInvoiceItemService;
 
-  @Lazy
-  @Autowired
+  @Take
   private OutsourcingOrderItemService outsourcingOrderItemService;
 
-  @Lazy
-  @Autowired
+  @Take
   private InvoiceItemService invoiceItemService;
 
-  @Lazy
   @Autowired
   private OutsourcingInvoiceService outsourcingInvoiceService;
 
-  @Lazy
-  @Autowired
+  @Take
   private ItemLotService itemLotService;
 
-  @Lazy
-  @Autowired
+  @Take
   private ItemSpecService itemSpecService;
 
   @EventListener

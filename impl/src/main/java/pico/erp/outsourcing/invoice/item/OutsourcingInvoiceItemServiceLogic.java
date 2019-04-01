@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import kkojaeh.spring.boot.component.Give;
+import kkojaeh.spring.boot.component.Take;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -32,8 +33,7 @@ public class OutsourcingInvoiceItemServiceLogic implements OutsourcingInvoiceIte
   @Autowired
   private OutsourcingInvoiceItemMapper mapper;
 
-  @Lazy
-  @Autowired
+  @Take
   private OutsourcingInvoiceService invoiceService;
 
   @Lazy
