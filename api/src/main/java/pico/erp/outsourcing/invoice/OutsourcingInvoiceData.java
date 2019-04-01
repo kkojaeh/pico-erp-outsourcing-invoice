@@ -1,6 +1,6 @@
 package pico.erp.outsourcing.invoice;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import lombok.Data;
 import pico.erp.invoice.InvoiceId;
 import pico.erp.outsourcing.order.OutsourcingOrderId;
@@ -14,7 +14,7 @@ public class OutsourcingInvoiceData {
 
   InvoiceId invoiceId;
 
-  OffsetDateTime dueDate;
+  LocalDateTime dueDate;
 
   OutsourcingInvoiceStatusKind status;
 

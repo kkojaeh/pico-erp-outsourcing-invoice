@@ -11,7 +11,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
-import pico.erp.audit.annotation.Audit;
 import pico.erp.invoice.item.InvoiceItemId;
 import pico.erp.outsourcing.invoice.OutsourcingInvoice;
 import pico.erp.outsourcing.order.item.OutsourcingOrderItemId;
@@ -25,7 +24,6 @@ import pico.erp.outsourcing.order.item.OutsourcingOrderItemId;
 @EqualsAndHashCode(of = "id")
 @Builder(toBuilder = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Audit(alias = "outsourcing-invoice-item")
 public class OutsourcingInvoiceItem implements Serializable {
 
   private static final long serialVersionUID = 1L;

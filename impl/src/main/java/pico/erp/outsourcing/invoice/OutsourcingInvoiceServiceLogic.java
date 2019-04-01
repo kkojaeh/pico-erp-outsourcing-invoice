@@ -1,15 +1,15 @@
 package pico.erp.outsourcing.invoice;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import kkojaeh.spring.boot.component.Give;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import pico.erp.audit.AuditService;
 import pico.erp.invoice.InvoiceId;
 import pico.erp.outsourcing.invoice.OutsourcingInvoiceRequests.CancelRequest;
 import pico.erp.outsourcing.invoice.OutsourcingInvoiceRequests.DetermineRequest;
@@ -18,12 +18,11 @@ import pico.erp.outsourcing.invoice.OutsourcingInvoiceRequests.InvoiceRequest;
 import pico.erp.outsourcing.invoice.OutsourcingInvoiceRequests.ReceiveRequest;
 import pico.erp.outsourcing.order.OutsourcingOrderId;
 import pico.erp.outsourcing.order.OutsourcingOrderService;
-import pico.erp.shared.Public;
 import pico.erp.shared.event.EventPublisher;
 
 @SuppressWarnings("Duplicates")
 @Service
-@Public
+@Give
 @Transactional
 @Validated
 public class OutsourcingInvoiceServiceLogic implements OutsourcingInvoiceService {
@@ -134,7 +133,7 @@ public class OutsourcingInvoiceServiceLogic implements OutsourcingInvoiceService
     val createRequest = OutsourcingInvoiceRequests.CreateRequest.builder()
       .id(id)
       .orderId(order.getId())
-      .dueDate(OffsetDateTime.now().plusDays(1))
+      .dueDate(LocalDateTime.now().plusDays(1))
       .build();
     val created = create(createRequest);
     eventPublisher.publishEvent(

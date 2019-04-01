@@ -20,7 +20,7 @@ interface OutsourcingInvoiceEntityRepository extends
   Stream<OutsourcingInvoiceEntity> findAllBy(@Param("orderId") OutsourcingOrderId orderId);
 
   @Query("SELECT i FROM OutsourcingInvoice i WHERE i.invoiceId = :invoiceId")
-  OutsourcingInvoiceEntity findBy(@Param("invoiceId") InvoiceId invoiceId);
+  Optional<OutsourcingInvoiceEntity> findBy(@Param("invoiceId") InvoiceId invoiceId);
 
   @Query("SELECT CASE WHEN COUNT(i) > 0 THEN true ELSE false END FROM OutsourcingInvoice i WHERE i.invoiceId = :invoiceId")
   boolean exists(@Param("invoiceId") InvoiceId invoiceId);
@@ -46,12 +46,12 @@ public class OutsourcingInvoiceRepositoryJpa implements OutsourcingInvoiceReposi
 
   @Override
   public void deleteBy(OutsourcingInvoiceId id) {
-    repository.delete(id);
+    repository.deleteById(id);
   }
 
   @Override
   public boolean exists(OutsourcingInvoiceId id) {
-    return repository.exists(id);
+    return repository.existsById(id);
   }
 
   @Override
@@ -61,13 +61,13 @@ public class OutsourcingInvoiceRepositoryJpa implements OutsourcingInvoiceReposi
 
   @Override
   public Optional<OutsourcingInvoice> findBy(OutsourcingInvoiceId id) {
-    return Optional.ofNullable(repository.findOne(id))
+    return repository.findById(id)
       .map(mapper::jpa);
   }
 
   @Override
   public Optional<OutsourcingInvoice> findBy(InvoiceId invoiceId) {
-    return Optional.ofNullable(repository.findBy(invoiceId))
+    return repository.findBy(invoiceId)
       .map(mapper::jpa);
   }
 
@@ -79,7 +79,7 @@ public class OutsourcingInvoiceRepositoryJpa implements OutsourcingInvoiceReposi
 
   @Override
   public void update(OutsourcingInvoice plan) {
-    val entity = repository.findOne(plan.getId());
+    val entity = repository.findById(plan.getId()).get();
     mapper.pass(mapper.jpa(plan), entity);
     repository.save(entity);
   }
