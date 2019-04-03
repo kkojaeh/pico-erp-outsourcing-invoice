@@ -3,10 +3,10 @@ package pico.erp.outsourcing.invoice;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import kkojaeh.spring.boot.component.Give;
+import kkojaeh.spring.boot.component.ComponentAutowired;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -22,7 +22,7 @@ import pico.erp.shared.event.EventPublisher;
 
 @SuppressWarnings("Duplicates")
 @Service
-@Give
+@ComponentBean
 @Transactional
 @Validated
 public class OutsourcingInvoiceServiceLogic implements OutsourcingInvoiceService {
@@ -36,8 +36,7 @@ public class OutsourcingInvoiceServiceLogic implements OutsourcingInvoiceService
   @Autowired
   private OutsourcingInvoiceMapper mapper;
 
-  @Lazy
-  @Autowired
+  @ComponentAutowired
   private OutsourcingOrderService outsourcingOrderService;
 
   @Override

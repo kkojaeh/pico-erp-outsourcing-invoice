@@ -7,34 +7,19 @@ import org.springframework.context.annotation.Lazy
 import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
-import pico.erp.bom.BomApplication
-import pico.erp.company.CompanyApplication
-import pico.erp.delivery.DeliveryApplication
-import pico.erp.document.DocumentApplication
-import pico.erp.invoice.InvoiceApplication
 import pico.erp.invoice.InvoiceRequests
 import pico.erp.invoice.InvoiceService
-import pico.erp.item.ItemApplication
 import pico.erp.outsourcing.invoice.item.OutsourcingInvoiceItemService
-import pico.erp.outsourcing.order.OutsourcingOrderApplication
 import pico.erp.outsourcing.order.OutsourcingOrderId
-import pico.erp.outsourcing.request.OutsourcingRequestApplication
-import pico.erp.process.ProcessApplication
-import pico.erp.project.ProjectApplication
+import pico.erp.shared.ComponentDefinitionServiceLoaderTestComponentSiblingsSupplier
 import pico.erp.shared.TestParentApplication
-import pico.erp.user.UserApplication
 import pico.erp.user.UserId
-import pico.erp.warehouse.WarehouseApplication
 import spock.lang.Specification
 
 import java.time.LocalDateTime
 
 @SpringBootTest(classes = [OutsourcingInvoiceApplication, TestConfig])
-@SpringBootTestComponent(parent = TestParentApplication, siblings = [
-  UserApplication, ItemApplication, ProjectApplication, ProcessApplication, CompanyApplication,
-  OutsourcingOrderApplication, InvoiceApplication, DocumentApplication, DeliveryApplication,
-  OutsourcingRequestApplication, WarehouseApplication, BomApplication
-])
+@SpringBootTestComponent(parent = TestParentApplication, siblingsSupplier = ComponentDefinitionServiceLoaderTestComponentSiblingsSupplier.class)
 @Transactional
 @Rollback
 @ActiveProfiles("test")

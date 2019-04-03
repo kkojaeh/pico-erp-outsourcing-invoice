@@ -1,38 +1,23 @@
 package pico.erp.outsourcing.invoice.item
 
+import kkojaeh.spring.boot.component.ComponentAutowired
 import kkojaeh.spring.boot.component.SpringBootTestComponent
-import kkojaeh.spring.boot.component.Take
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
-import pico.erp.bom.BomApplication
-import pico.erp.company.CompanyApplication
-import pico.erp.delivery.DeliveryApplication
-import pico.erp.document.DocumentApplication
-import pico.erp.invoice.InvoiceApplication
-import pico.erp.item.ItemApplication
 import pico.erp.outsourcing.invoice.*
-import pico.erp.outsourcing.order.OutsourcingOrderApplication
 import pico.erp.outsourcing.order.OutsourcingOrderId
 import pico.erp.outsourcing.order.OutsourcingOrderRequests
 import pico.erp.outsourcing.order.OutsourcingOrderService
 import pico.erp.outsourcing.order.item.OutsourcingOrderItemId
-import pico.erp.outsourcing.request.OutsourcingRequestApplication
-import pico.erp.process.ProcessApplication
-import pico.erp.project.ProjectApplication
+import pico.erp.shared.ComponentDefinitionServiceLoaderTestComponentSiblingsSupplier
 import pico.erp.shared.TestParentApplication
-import pico.erp.user.UserApplication
-import pico.erp.warehouse.WarehouseApplication
 import spock.lang.Specification
 
 @SpringBootTest(classes = [OutsourcingInvoiceApplication, TestConfig])
-@SpringBootTestComponent(parent = TestParentApplication, siblings = [
-  UserApplication, ItemApplication, ProjectApplication, ProcessApplication, CompanyApplication,
-  OutsourcingOrderApplication, InvoiceApplication, DocumentApplication, DeliveryApplication,
-  OutsourcingRequestApplication, WarehouseApplication, BomApplication
-])
+@SpringBootTestComponent(parent = TestParentApplication, siblingsSupplier = ComponentDefinitionServiceLoaderTestComponentSiblingsSupplier.class)
 @Transactional
 @Rollback
 @ActiveProfiles("test")
@@ -44,7 +29,7 @@ class OutsourcingInvoiceItemServiceSpec extends Specification {
   @Autowired
   OutsourcingInvoiceItemService invoiceItemService
 
-  @Take
+  @ComponentAutowired
   OutsourcingOrderService orderService
 
   def invoiceId = OutsourcingInvoiceId.from("outsourcing-invoice-test")

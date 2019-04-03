@@ -1,6 +1,6 @@
 package pico.erp.outsourcing.invoice;
 
-import kkojaeh.spring.boot.component.Take;
+import kkojaeh.spring.boot.component.ComponentAutowired;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -22,7 +22,7 @@ public class OutsourcingInvoiceEventListener {
 
   private static final String LISTENER_NAME = "listener.outsourcing-invoice-event-listener";
 
-  @Take
+  @ComponentAutowired
   private InvoiceService invoiceService;
 
   @Lazy
@@ -33,7 +33,7 @@ public class OutsourcingInvoiceEventListener {
   @Autowired
   private OutsourcingInvoiceItemService outsourcingInvoiceItemService;
 
-  @Take
+  @ComponentAutowired
   private OutsourcingOrderService outsourcingOrderService;
 
 
