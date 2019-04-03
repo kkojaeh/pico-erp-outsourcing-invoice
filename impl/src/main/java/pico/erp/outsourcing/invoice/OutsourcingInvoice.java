@@ -1,7 +1,7 @@
 package pico.erp.outsourcing.invoice;
 
 import java.io.Serializable;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import javax.persistence.Id;
 import lombok.AccessLevel;
@@ -11,7 +11,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
-import pico.erp.audit.annotation.Audit;
 import pico.erp.invoice.InvoiceId;
 import pico.erp.outsourcing.invoice.OutsourcingInvoiceEvents.DeterminedEvent;
 import pico.erp.outsourcing.order.OutsourcingOrderId;
@@ -25,7 +24,6 @@ import pico.erp.outsourcing.order.OutsourcingOrderId;
 @EqualsAndHashCode(of = "id")
 @Builder(toBuilder = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Audit(alias = "outsourcing-invoice")
 public class OutsourcingInvoice implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -37,7 +35,7 @@ public class OutsourcingInvoice implements Serializable {
 
   InvoiceId invoiceId;
 
-  OffsetDateTime dueDate;
+  LocalDateTime dueDate;
 
   String remark;
 

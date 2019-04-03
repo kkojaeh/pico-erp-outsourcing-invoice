@@ -1,41 +1,35 @@
 package pico.erp.outsourcing.invoice.item
 
+import kkojaeh.spring.boot.component.ComponentAutowired
+import kkojaeh.spring.boot.component.SpringBootTestComponent
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.context.annotation.ComponentScan
-import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Lazy
 import org.springframework.test.annotation.Rollback
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
-import pico.erp.outsourcing.invoice.OutsourcingInvoiceId
-import pico.erp.outsourcing.invoice.OutsourcingInvoiceRequests
-import pico.erp.outsourcing.invoice.OutsourcingInvoiceService
+import pico.erp.outsourcing.invoice.*
 import pico.erp.outsourcing.order.OutsourcingOrderId
 import pico.erp.outsourcing.order.OutsourcingOrderRequests
 import pico.erp.outsourcing.order.OutsourcingOrderService
 import pico.erp.outsourcing.order.item.OutsourcingOrderItemId
-import pico.erp.shared.IntegrationConfiguration
+import pico.erp.shared.ComponentDefinitionServiceLoaderTestComponentSiblingsSupplier
+import pico.erp.shared.TestParentApplication
 import spock.lang.Specification
 
-@SpringBootTest(classes = [IntegrationConfiguration])
+@SpringBootTest(classes = [OutsourcingInvoiceApplication, TestConfig])
+@SpringBootTestComponent(parent = TestParentApplication, siblingsSupplier = ComponentDefinitionServiceLoaderTestComponentSiblingsSupplier.class)
 @Transactional
 @Rollback
 @ActiveProfiles("test")
-@Configuration
-@ComponentScan("pico.erp.config")
 class OutsourcingInvoiceItemServiceSpec extends Specification {
 
-  @Lazy
   @Autowired
   OutsourcingInvoiceService invoiceService
 
-  @Lazy
   @Autowired
   OutsourcingInvoiceItemService invoiceItemService
 
-  @Lazy
-  @Autowired
+  @ComponentAutowired
   OutsourcingOrderService orderService
 
   def invoiceId = OutsourcingInvoiceId.from("outsourcing-invoice-test")

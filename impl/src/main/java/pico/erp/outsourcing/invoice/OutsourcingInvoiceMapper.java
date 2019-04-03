@@ -1,6 +1,7 @@
 package pico.erp.outsourcing.invoice;
 
 import java.util.Optional;
+import kkojaeh.spring.boot.component.ComponentAutowired;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -20,10 +21,9 @@ import pico.erp.item.ItemService;
 import pico.erp.item.spec.ItemSpecData;
 import pico.erp.item.spec.ItemSpecId;
 import pico.erp.item.spec.ItemSpecService;
-import pico.erp.outsourcing.order.OutsourcingOrderService;
-import pico.erp.project.ProjectService;
 import pico.erp.outsourcing.invoice.OutsourcingInvoiceRequests.DetermineRequest;
 import pico.erp.outsourcing.invoice.OutsourcingInvoiceRequests.ReceiveRequest;
+import pico.erp.project.ProjectService;
 import pico.erp.shared.data.Auditor;
 import pico.erp.user.UserData;
 import pico.erp.user.UserId;
@@ -35,33 +35,27 @@ public abstract class OutsourcingInvoiceMapper {
   @Autowired
   protected AuditorAware<Auditor> auditorAware;
 
-  @Lazy
-  @Autowired
+  @ComponentAutowired
   protected ItemService itemService;
 
-  @Lazy
-  @Autowired
+  @ComponentAutowired
   protected ItemSpecService itemSpecService;
 
-  @Lazy
-  @Autowired
+  @ComponentAutowired
   private CompanyService companyService;
 
-  @Lazy
-  @Autowired
+  @ComponentAutowired
   private UserService userService;
 
   @Lazy
   @Autowired
   private OutsourcingInvoiceRepository outsourcingInvoiceRepository;
 
-  @Lazy
-  @Autowired
+  @ComponentAutowired
   private ProjectService projectService;
 
 
-  @Lazy
-  @Autowired
+  @ComponentAutowired
   private InvoiceService invoiceService;
 
   @Mappings({

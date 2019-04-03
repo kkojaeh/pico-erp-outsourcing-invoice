@@ -3,23 +3,22 @@ package pico.erp.outsourcing.invoice.item;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import kkojaeh.spring.boot.component.ComponentAutowired;
+import kkojaeh.spring.boot.component.ComponentBean;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import pico.erp.audit.AuditService;
 import pico.erp.outsourcing.invoice.OutsourcingInvoiceId;
 import pico.erp.outsourcing.invoice.OutsourcingInvoiceService;
 import pico.erp.outsourcing.invoice.item.OutsourcingInvoiceItemRequests.DeleteRequest;
 import pico.erp.outsourcing.order.item.OutsourcingOrderItemService;
-import pico.erp.shared.Public;
 import pico.erp.shared.event.EventPublisher;
 
 @SuppressWarnings("Duplicates")
 @Service
-@Public
+@ComponentBean
 @Transactional
 @Validated
 public class OutsourcingInvoiceItemServiceLogic implements OutsourcingInvoiceItemService {
@@ -33,12 +32,10 @@ public class OutsourcingInvoiceItemServiceLogic implements OutsourcingInvoiceIte
   @Autowired
   private OutsourcingInvoiceItemMapper mapper;
 
-  @Lazy
   @Autowired
   private OutsourcingInvoiceService invoiceService;
 
-  @Lazy
-  @Autowired
+  @ComponentAutowired
   private OutsourcingOrderItemService outsourcingOrderItemService;
 
 
