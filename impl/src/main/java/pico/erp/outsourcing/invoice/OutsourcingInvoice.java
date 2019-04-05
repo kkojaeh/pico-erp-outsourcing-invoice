@@ -1,7 +1,7 @@
 package pico.erp.outsourcing.invoice;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import javax.persistence.Id;
 import lombok.AccessLevel;
@@ -35,7 +35,7 @@ public class OutsourcingInvoice implements Serializable {
 
   InvoiceId invoiceId;
 
-  LocalDateTime dueDate;
+  OffsetDateTime dueDate;
 
   String remark;
 

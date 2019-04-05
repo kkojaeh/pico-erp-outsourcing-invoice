@@ -1,6 +1,6 @@
 package pico.erp.outsourcing.invoice;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.Collection;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
@@ -29,7 +29,7 @@ public interface OutsourcingInvoiceMessages {
 
       @Future
       @NotNull
-      LocalDateTime dueDate;
+      OffsetDateTime dueDate;
 
       @Size(max = TypeDefinitions.REMARK_LENGTH)
       String remark;
@@ -52,7 +52,7 @@ public interface OutsourcingInvoiceMessages {
 
       @Future
       @NotNull
-      LocalDateTime dueDate;
+      OffsetDateTime dueDate;
 
       @Size(max = TypeDefinitions.REMARK_LENGTH)
       String remark;
